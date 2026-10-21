@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: forge_api
+      POSTGRES_USER: forge
+      POSTGRES_PASSWORD: forge
+    ports: ["5433:5432"]
+    volumes: [forge-postgres:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U forge -d forge_api"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  api:
+    build: .
+    ports: ["4000:4000"]
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://forge:forge@db:5432/forge_api
+      NODE_ENV: production
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  forge-postgres:
