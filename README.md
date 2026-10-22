@@ -66,3 +66,4 @@ Tests do not connect to a developer database: they cover public routes and valid
 Run Node behind a trusted reverse proxy or managed platform that terminates TLS. Set `NODE_ENV=production`, configure `CORS_ORIGIN` to the real frontend origin, use a strong secret from the deployment secret manager, and set `trust proxy` to match the actual proxy topology. Local development intentionally uses HTTP; TLS certificate verification is never disabled.
 
 Known limitations: there is no refresh-token or email-verification flow, and the API currently has no task assignment or audit log model.
+# forge-API
